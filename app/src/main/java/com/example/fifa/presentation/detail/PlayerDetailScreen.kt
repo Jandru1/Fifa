@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -29,13 +31,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -55,6 +63,8 @@ fun PlayerDetailScreen(
     val myPlayer = playerDetailViewModel.player.observeAsState().value
 
     playerDetailViewModel.getPlayer(playerId)
+
+    val colorVerde = colorResource(id = R.color.verdeFIFA)
 
     Scaffold(
         topBar = {
@@ -117,7 +127,7 @@ fun PlayerDetailScreen(
 
             Spacer(
                 modifier = Modifier
-                    .size(20.dp)
+                    .size(30.dp)
             )
 
             Row(
@@ -126,19 +136,32 @@ fun PlayerDetailScreen(
             ) {
                 Column() {
                     Row(
+                        modifier = Modifier
+                        //    .padding(20.dp)
                     ) {
+
                         Text(
-                            modifier = Modifier
-                                .background(Color.White, CircleShape)
-                                .border(1.dp, Color.Black, CircleShape)
-                                .width(200.dp),
+                        modifier = Modifier
+                                .width(200.dp)
+                                .drawBehind {
+                                    drawCircle(
+                                        color = colorVerde,
+                                        radius = 30.dp.toPx()
+                                    )
+                                    drawCircle(
+                                        color = Color.Black,
+                                        style = Stroke(width = 2.dp.toPx()), // Borde del círculo con ancho de 4dp
+                                        radius = 30.dp.toPx()
+                                    )
+                                },
                             text = "${myPlayer?.rating}",
                             textAlign = TextAlign.Center,
+                            fontSize = 30.sp
                         )
                     }
                     Spacer(
                         modifier = Modifier
-                            .size(8.dp)
+                            .size(30.dp)
                     )
                     Row() {
                         Text(
@@ -164,7 +187,7 @@ fun PlayerDetailScreen(
                             textAlign = TextAlign.Center,
                         )
                     }
-/*                    Spacer(
+                    /*                    Spacer(
                         modifier = Modifier
                             .size(8.dp)
                     )
@@ -190,40 +213,41 @@ fun PlayerDetailScreen(
                             .background(Color.White, CircleShape)
                             .border(1.dp, Color.Black, CircleShape),
                         horizontalArrangement = Arrangement.Center
-                    ){
+                    ) {
 
-                            AndroidView(
-                                modifier = Modifier
-                                    .size(40.dp),
-                                factory = { context ->
-                                    FootLeftPlayerComponent(context).apply {
-                                        this.myFoot = myPlayer?.foot.toString()
-                                    }
-                                },
-                                update = {
-                                    it.myFoot = myPlayer?.foot.toString()
+                        AndroidView(
+                            modifier = Modifier
+                                .size(40.dp),
+                            factory = { context ->
+                                FootLeftPlayerComponent(context).apply {
+                                    this.myFoot = myPlayer?.foot.toString()
                                 }
-                            )
-                            AndroidView(
-                                modifier = Modifier
-                                    .size(40.dp),
-                                factory = { context ->
-                                    FootRightPlayerComponent(context).apply {
-                                        this.myFoot = myPlayer?.foot.toString()
-                                    }
-                                },
-                                update = {
-                                    it.myFoot = myPlayer?.foot.toString()
+                            },
+                            update = {
+                                it.myFoot = myPlayer?.foot.toString()
+                            }
+                        )
+                        AndroidView(
+                            modifier = Modifier
+                                .size(40.dp),
+                            factory = { context ->
+                                FootRightPlayerComponent(context).apply {
+                                    this.myFoot = myPlayer?.foot.toString()
                                 }
-                            )
+                            },
+                            update = {
+                                it.myFoot = myPlayer?.foot.toString()
+                            }
+                        )
 
                         //PIES
                     }
                 }
             }
         }
+        }
     }
-}
+
 
 @Preview
 @Composable
@@ -233,6 +257,5 @@ fun PreviewDetail() {
         onClick = {
 
     }
-
     )
 }
