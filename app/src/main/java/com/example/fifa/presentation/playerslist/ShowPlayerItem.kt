@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.fifa.R
+import com.example.fifa.data.remote.TOKEN
 import com.example.fifa.domain.model.PlayerModel
 import com.example.fifa.ui.theme.globalElevation
 import com.example.fifa.ui.theme.globalPadding
@@ -44,13 +45,15 @@ fun ShowPlayerItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
+
             AsyncImage(
                 modifier = Modifier
                     .size(50.dp),
-                placeholder = painterResource(id = R.drawable.barsa),
-                error = painterResource(id = R.drawable.barsa),
+                placeholder = painterResource(id = R.drawable.loading_icon),
+                error = painterResource(id = R.drawable.loading_icon),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("photoUrl")
+                    .data("https://futdb.app/api/players/${player.id}/image")
+                    .setHeader("X-AUTH-TOKEN", "$TOKEN")
                     .build(), contentDescription = ""
             )
             /*            if(photo?.byteArray?.size != null) {

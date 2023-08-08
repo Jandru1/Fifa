@@ -50,8 +50,8 @@ fun ShowTeamItem(
 
     val teamList = teamListViewModel.teamList.observeAsState().value
     val photo = teamListViewModel.teamImage.observeAsState().value
-/*
     //
+
     LaunchedEffect(Unit) {
         if (team.escudo.byteArray != null) {
             val url = teamListViewModel.getUrl(team.id)
@@ -60,21 +60,6 @@ fun ShowTeamItem(
             }
         }
     }
-
-    Row {
-        AsyncImage(
-            modifier = Modifier
-                .size(50.dp),
-            placeholder = painterResource(id = R.drawable.barsa),
-            error = painterResource(id = R.drawable.barsa),
-            model = ImageRequest.Builder(LocalContext.current)
-                .data("https://futdb.app/api/clubs/${team.id}/image")
-                .build(), contentDescription = ""
-        )
-    }*/
-
-
-    //--------------------------------
 
     Card(
         modifier = androidx.compose.ui.Modifier.padding(globalPadding),
@@ -94,19 +79,13 @@ fun ShowTeamItem(
             AsyncImage(
                 modifier = Modifier
                     .size(50.dp),
-                placeholder = painterResource(id = R.drawable.barsa),
-                error = painterResource(id = R.drawable.barsa),
+                placeholder = painterResource(id = R.drawable.loading_icon),
+                error = painterResource(id = R.drawable.loading_icon),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("photoUrl")
+                    .data("https://futdb.app/api/clubs/${team.id}/image")
+                    .setHeader("X-AUTH-TOKEN", "$TOKEN")
                     .build(), contentDescription = ""
             )
-/*            if(photo?.byteArray?.size != null) {
-                photo?.byteArray?.toBitmap()?.asImageBitmap()?.let { BitmapPainter(it) }?.let {
-                    Image(painter = it,
-                        contentDescription = null)
-                }
-            }*/
-
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

@@ -26,9 +26,6 @@ class TeamListViewModel (
 
     init {
         getData()
-        for(i in 0..(_teamList.value?.size ?: 0)) {
-            _teamList.value?.get(i)?.id?.let { getUrl(it) }
-        }
     }
 
     private fun getData() {

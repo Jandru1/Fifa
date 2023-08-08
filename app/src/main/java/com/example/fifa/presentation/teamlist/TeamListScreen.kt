@@ -35,34 +35,33 @@ fun TeamListScreen(
     val state = teamListViewModel.teamList.observeAsState()
     val myList = state.value
 
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(R.drawable.pedrigavi),
+            contentDescription = "pedri",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+    }
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = painterResource(R.drawable.pedrigavi),
-                contentDescription = "pedri",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds
-            )
-        }
+    LazyColumn(
+        modifier = Modifier.padding(
+            vertical = globalPadding
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        LazyColumn(
-            modifier = Modifier.padding(
-                vertical = globalPadding
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            items(myList?.size ?: 0) { i ->
-                Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
-                val item = myList?.get(i)
-                item?.let { equipo ->
-                    Log.w("EQUIPOS DENTRO", "el nombre es $equipo")
-                    ShowTeamItem(equipo, { onClick(item.id) })
-                }
+        items(myList?.size ?: 0) { i ->
+            Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
+            val item = myList?.get(i)
+            item?.let { equipo ->
+                Log.w("EQUIPOS DENTRO", "el nombre es $equipo")
+                ShowTeamItem(equipo, { onClick(item.id) })
             }
         }
+    }
 }
