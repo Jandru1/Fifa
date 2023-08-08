@@ -8,14 +8,22 @@ fun PlayerDto.toPlayerModel() = PlayerModel(
     id = id ?: -1,
     name = name ?: "none",
     club = club ?: -1,
-    league = league ?: -1
+    league = league ?: -1,
+    age= age ?: -1,
+    foot = foot ?: "none",
+    position = position ?: "none",
+    rating = rating ?: -1
 )
 
 fun PlayerDto.toPlayerLocal() = PlayerLocal(
     id = id ?: -1,
     name = name ?: "none",
     club = club ?: -1,
-    league = league ?: -1
+    league = league ?: -1,
+    age= age ?: -1,
+    foot = foot ?: "none",
+    position = position ?: "none",
+    rating = rating ?: -1
 
 )
 
@@ -23,5 +31,9 @@ fun PlayerLocal.toPlayerModel() = PlayerModel(
     id = id ?: -1,
     name = name ?: "none",
     club = club ?: -1,
-    league = league ?: -1
+    league = league ?: -1,
+    age= age ?: -1,
+    foot = foot ?: "none",
+    position = position ?: "none",
+    rating = rating ?: -1
 )

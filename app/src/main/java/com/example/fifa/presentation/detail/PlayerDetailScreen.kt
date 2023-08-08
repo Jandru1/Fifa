@@ -133,7 +133,7 @@ fun PlayerDetailScreen(
                                 .background(Color.White, CircleShape)
                                 .border(1.dp, Color.Black, CircleShape)
                                 .width(200.dp),
-                            text = "${myPlayer?.name}",
+                            text = "${myPlayer?.rating}",
                             textAlign = TextAlign.Center,
                         )
                     }
@@ -147,7 +147,7 @@ fun PlayerDetailScreen(
                                 .background(Color.White, CircleShape)
                                 .border(1.dp, Color.Black, CircleShape)
                                 .width(200.dp),
-                            text = "${myPlayer?.club}:",
+                            text = "${myPlayer?.age} años",
                             textAlign = TextAlign.Center,
                         )
                     }
@@ -161,7 +161,21 @@ fun PlayerDetailScreen(
                                 .background(Color.White, CircleShape)
                                 .border(1.dp, Color.Black, CircleShape)
                                 .width(200.dp),
-                            text = "${myPlayer?.id}:",
+                            text = "${myPlayer?.position}",
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .size(8.dp)
+                    )
+                    Row {
+                        Text(
+                            modifier = Modifier
+                                .background(Color.White, CircleShape)
+                                .border(1.dp, Color.Black, CircleShape)
+                                .width(200.dp),
+                            text = "${myPlayer?.foot}",
                             textAlign = TextAlign.Center,
                         )
                     }
