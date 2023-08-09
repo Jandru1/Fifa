@@ -102,7 +102,7 @@ fun ShowTeamItem(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "Campeón Liga 2022 - 2023",
+                        text = "Actual Campeón",
                         maxLines = 4,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -125,6 +125,8 @@ fun ShowPreview(){
             .withName("EquipoPrueba")
             .withLeague(-1)
             .builder(),
-        fun(){}
+        fun(){
+
+        }
     )
 }

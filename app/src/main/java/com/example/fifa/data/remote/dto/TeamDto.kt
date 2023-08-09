@@ -6,3 +6,4 @@ data class TeamDto(
   //  @Json(name = "pagination") val pagination: PaginationDto?,
     @Json(name = "items") val items: List<ItemDto>,
 )
+

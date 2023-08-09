@@ -1,5 +1,6 @@
 package com.example.fifa.presentation.playerslist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,8 +15,13 @@ import kotlinx.coroutines.withContext
 class PlayerListViewModel(
     private val getPlayersListUseCase: GetPlayersListUseCase
 ) :ViewModel() {
-    private val _playerslist = MutableLiveData<List<PlayerModel>>()
+
+    private var _playerslist = MutableLiveData<List<PlayerModel>>()
     val playersList: LiveData<List<PlayerModel>> get() = _playerslist
+
+
+    private var _playerslistAux = MutableLiveData<List<PlayerModel>>()
+    val playersListAux: LiveData<List<PlayerModel>> get() = _playerslistAux
 
     init {
        // getData()
@@ -45,5 +51,14 @@ class PlayerListViewModel(
             catch(t: Throwable) {
             }
         }
+    }
+
+    fun filterListBySearch(namePlayer: String) {
+        _playerslistAux.value = _playerslist.value?.filter {
+            it.name == namePlayer
+        }
+        _playerslist.value = _playerslistAux.value
+
+        Log.w("Reduciendo Lista", "Nueva lista: ${_playerslist.value}")
     }
 }

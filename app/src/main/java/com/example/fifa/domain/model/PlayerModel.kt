@@ -8,5 +8,6 @@ data class PlayerModel (
     val age: Int,
     val position: String,
     val foot: String,
-    val rating: Int
+    val rating: Int,
+    val rarity: Int
         )

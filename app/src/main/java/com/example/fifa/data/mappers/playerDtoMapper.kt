@@ -12,7 +12,8 @@ fun PlayerDto.toPlayerModel() = PlayerModel(
     age= age ?: -1,
     foot = foot ?: "none",
     position = position ?: "none",
-    rating = rating ?: -1
+    rating = rating ?: -1,
+    rarity = rarity ?: -1
 )
 
 fun PlayerDto.toPlayerLocal() = PlayerLocal(
@@ -23,7 +24,8 @@ fun PlayerDto.toPlayerLocal() = PlayerLocal(
     age= age ?: -1,
     foot = foot ?: "none",
     position = position ?: "none",
-    rating = rating ?: -1
+    rating = rating ?: -1,
+    rarity = rarity ?: -1
 
 )
 
@@ -35,5 +37,6 @@ fun PlayerLocal.toPlayerModel() = PlayerModel(
     age= age ?: -1,
     foot = foot ?: "none",
     position = position ?: "none",
-    rating = rating ?: -1
+    rating = rating ?: -1,
+    rarity = rarity ?: -1
 )

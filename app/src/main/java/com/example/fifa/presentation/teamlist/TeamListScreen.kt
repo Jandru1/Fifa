@@ -35,11 +35,13 @@ fun TeamListScreen(
     val state = teamListViewModel.teamList.observeAsState()
     val myList = state.value
 
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+
         Image(
             painter = painterResource(R.drawable.pedrigavi),
             contentDescription = "pedri",

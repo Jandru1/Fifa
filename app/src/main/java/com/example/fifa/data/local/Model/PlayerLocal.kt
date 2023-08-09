@@ -14,4 +14,5 @@ class PlayerLocal(
     @ColumnInfo(name = "foot") val foot: String,
     @ColumnInfo(name = "position") val position: String,
     @ColumnInfo(name = "rating") val rating: Int,
+    @ColumnInfo(name = "rarity") val rarity: Int,
 )
