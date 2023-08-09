@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -93,70 +94,6 @@ fun PlayersListScreen(
         var query by remember { mutableStateOf("") }
         var active by remember { mutableStateOf(false) }
 
-        SearchBar(
-            query = query,
-            onQueryChange = {query = it},
-            onSearch = {
-                Toast.makeText(ctx, query, Toast.LENGTH_LONG).show()
-                active = false
-                },
-            active = active,
-            onActiveChange = { active = it },
-            modifier = Modifier
-                .wrapContentHeight()
-                .fillMaxWidth()
-        ) {
-            if(query.isNotEmpty()){
-                val filtredPlayers = myList?.filter {
-                    it.name.contains(query, true)
-                }
-
-                LazyColumn(){
-                    filtredPlayers?.size?.let { it1 ->
-                        items(it1) {
-                            val player = filtredPlayers?.get(it)
-                            Row (modifier = Modifier
-                                    .clickable {
-                                        Toast
-                                            .makeText(
-                                                ctx,
-                                                "PULSADO EN ${player?.name}",
-                                                Toast.LENGTH_LONG
-                                            )
-                                            .show()
-
-                                        player?.name?.let { it2 ->
-                                            playerListViewModel.filterListBySearch(it2)
-                                        }
-
-                                        active = false
-                                    }
-                            )
-                            {
-                                Text("${player?.name}",
-                                    Modifier
-                                        .padding(16.dp),
-                                    textAlign = TextAlign.Center
-                                )
-                                AsyncImage(
-                                    modifier = Modifier
-                                        .size(100.dp),
-                                    placeholder = painterResource(id = R.drawable.loading_icon),
-                                    error = painterResource(id = R.drawable.loading_icon),
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data("https://futdb.app/api/players/${player?.id}/image")
-                                        .setHeader("X-AUTH-TOKEN", "$TOKEN")
-                                        .build(), contentDescription = ""
-                                )
-                            }
-
-
-                        }
-                    }
-                }
-
-            }
-        }
         Box(
             modifier = Modifier
                 .fillMaxSize(),
@@ -170,19 +107,90 @@ fun PlayersListScreen(
             )
         }
 
-        LazyColumn(
-            modifier = Modifier.padding(
-                vertical = globalPadding
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(myList?.size ?: 0) { i ->
-                Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
-                val item = myList?.get(i)
-                item?.let { team ->
-                    ShowPlayerItem(team) { onClick(team) }
+        Column() {
+            Row() {
+                SearchBar(
+                    query = query,
+                    onQueryChange = {query = it},
+                    onSearch = {
+                        Toast.makeText(ctx, query, Toast.LENGTH_LONG).show()
+                        active = false
+                    },
+                    active = active,
+                    onActiveChange = { active = it },
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                ) {
+                    if(query.isNotEmpty()){
+                        val filtredPlayers = myList?.filter {
+                            it.name.contains(query, true)
+                        }
+
+                        LazyColumn(modifier = Modifier.padding(10.dp)){
+                            filtredPlayers?.size?.let { it1 ->
+                                items(it1) {
+                                    val player = filtredPlayers?.get(it)
+                                    Row (modifier = Modifier
+                                        .clickable {
+                                            Toast
+                                                .makeText(
+                                                    ctx,
+                                                    "PULSADO EN ${player?.name}",
+                                                    Toast.LENGTH_LONG
+                                                )
+                                                .show()
+
+                                            player?.name?.let { it2 ->
+                                                playerListViewModel.filterListBySearch(it2)
+                                            }
+
+                                            active = false
+                                        }
+                                    )
+                                    {
+                                        Text("${player?.name}",
+                                            Modifier
+                                                .padding(16.dp),
+                                            textAlign = TextAlign.Center
+                                        )
+                                        AsyncImage(
+                                            modifier = Modifier
+                                                .size(100.dp),
+                                            placeholder = painterResource(id = R.drawable.loading_icon),
+                                            error = painterResource(id = R.drawable.loading_icon),
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data("https://futdb.app/api/players/${player?.id}/image")
+                                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
+                                                .build(), contentDescription = ""
+                                        )
+                                    }
+
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            Row() {
+                LazyColumn(
+                    modifier = Modifier.padding(
+                        vertical = globalPadding
+                    ),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(myList?.size ?: 0) { i ->
+                        Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
+                        val item = myList?.get(i)
+                        item?.let { team ->
+                            ShowPlayerItem(team) { onClick(team) }
+                        }
+                    }
                 }
             }
         }
+
     }
 }
