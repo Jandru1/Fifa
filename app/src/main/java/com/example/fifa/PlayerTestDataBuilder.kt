@@ -1,7 +1,7 @@
 package com.example.fifa
 
-import com.example.fifa.domain.model.ItemModel
 import com.example.fifa.domain.model.PlayerModel
+import com.example.fifa.domain.model.TeamModel
 
 class PlayerTestDataBuilder {
     var id: Int = -1
@@ -13,6 +13,8 @@ class PlayerTestDataBuilder {
     var foot: String = "none"
     var rating: Int = -1
     var rarity: Int = -1
+
+    var numElements = -1
 
     fun withId(id: Int) :PlayerTestDataBuilder {
         this.id = id
@@ -53,6 +55,32 @@ class PlayerTestDataBuilder {
     fun withRarity(rarity: Int) :PlayerTestDataBuilder{
         this.rarity = rarity
         return this
+    }
+
+    fun withNumElements(el: Int) :PlayerTestDataBuilder{
+        this.numElements = el
+        return this
+    }
+
+    fun buildList(): List<PlayerModel> {
+        val list = mutableListOf<PlayerModel>()
+
+        for(i in 0 until numElements) {
+            list.add(
+                PlayerModel(
+                    id = id,
+                    name = commonName,
+                    club = club,
+                    league = league,
+                    foot = foot,
+                    position = position,
+                    age = age,
+                    rarity = rarity,
+                    rating = rating
+                )
+            )
+        }
+        return list.toList()
     }
 
     fun builder(): PlayerModel = PlayerModel(

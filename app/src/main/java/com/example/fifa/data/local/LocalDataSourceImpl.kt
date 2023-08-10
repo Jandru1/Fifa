@@ -2,7 +2,6 @@ package com.example.fifa.data.local
 
 import com.example.fifa.data.local.Model.PlayerLocal
 import com.example.fifa.data.local.Model.TeamLocal
-import com.example.fifa.data.remote.dto.TeamDto
 
 class LocalDataSourceImpl(
     private val teamDao: TeamDao,

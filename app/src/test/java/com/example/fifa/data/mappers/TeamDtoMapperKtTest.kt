@@ -1,10 +1,9 @@
 package com.example.fifa.data.mappers
 
 import com.example.fifa.data.local.Model.TeamLocal
-import com.example.fifa.data.remote.dto.ItemDto
+import com.example.fifa.data.remote.dto.TeamDto
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.jupiter.api.Assertions.*
 
 import org.junit.Test
 
@@ -12,26 +11,26 @@ internal class TeamDtoMapperKtTest {
 
     @Test
     fun toItemModel() {
-        val itemDto = ItemDto(
+        val teamDto = TeamDto(
             id = 1,
             name = "name",
             league = 5
         )
 
-        val itemModel = itemDto.toItemModel()
+        val itemModel = teamDto.toItemModel()
 
         assertThat(itemModel.league, `is`(5))
     }
 
     @Test
     fun toItemLocal() {
-        val itemDto = ItemDto(
+        val teamDto = TeamDto(
             id = 1,
             name = "name",
             league = 5
         )
 
-        val itemLocal  = itemDto.toItemLocal()
+        val itemLocal  = teamDto.toItemLocal()
 
         assertThat(itemLocal.league, `is`(5))
     }

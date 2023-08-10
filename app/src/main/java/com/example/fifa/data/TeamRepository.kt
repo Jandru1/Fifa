@@ -1,12 +1,11 @@
 package com.example.fifa.data
 
-import com.example.fifa.domain.model.ItemModel
-import com.example.fifa.domain.model.PhotoTeamModel
+import com.example.fifa.domain.model.TeamModel
 
 interface TeamRepository {
 
-    suspend fun getTeamList(): List<ItemModel>
+    suspend fun getTeamList(): List<TeamModel>
 
-    suspend fun getTeamUrl(teamId: Int): PhotoTeamModel
+    //suspend fun getTeamUrl(teamId: Int): PhotoTeamModel
 
 }

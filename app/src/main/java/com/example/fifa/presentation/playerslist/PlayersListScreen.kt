@@ -47,6 +47,7 @@ import coil.request.ImageRequest
 import com.example.fifa.R
 import com.example.fifa.data.remote.TOKEN
 import com.example.fifa.domain.model.PlayerModel
+import com.example.fifa.presentation.login.Animation
 import com.example.fifa.presentation.teamlist.ShowTeamItem
 import com.example.fifa.ui.theme.globalPadding
 import com.google.android.material.search.SearchBar
@@ -67,6 +68,7 @@ fun PlayersListScreen(
     playerListViewModel: PlayerListViewModel = koinViewModel(),
 
 ) {
+
     val myList = playerListViewModel.playersList.observeAsState().value
 
     val ctx = LocalContext.current
@@ -137,86 +139,95 @@ fun PlayersListScreen(
         }
 
         Column() {
-            Row() {
-                SearchBar(
-                    query = query,
-                    onQueryChange = {query = it},
-                    onSearch = {
-                        playerListViewModel.filterListByName(query)
-                        active = false
-                    },
-                    active = active,
-                    onActiveChange = { active = it },
-                    modifier = Modifier
-                        .wrapContentHeight()
-                        .fillMaxWidth()
-                ) {
-                    if(query.isNotEmpty()){
-                        val filtredPlayers = playerListViewModel.AllPlayersOfTeam?.filter {
-                            val namewithoutAccents = it.name.unaccent()
-                            namewithoutAccents.contains(query, true)
-                        }
 
-                        LazyColumn(modifier = Modifier
-                            .padding(10.dp)
-                            .fillMaxWidth()){
-                            filtredPlayers?.size?.let { player->
-                                items(player) {myPlayer ->
-                                    val player = filtredPlayers?.get(myPlayer)
-                                    Row (modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable {
-                                            Toast
-                                                .makeText(
-                                                    ctx,
-                                                    "PULSADO EN ${player?.name}",
-                                                    Toast.LENGTH_LONG
-                                                )
-                                                .show()
+            if(myList == null) {
+                Animation()
+            }
+            else {
+                Row() {
+                    SearchBar(
+                        query = query,
+                        onQueryChange = { query = it },
+                        onSearch = {
+                            playerListViewModel.filterListByName(query)
+                            active = false
+                        },
+                        active = active,
+                        onActiveChange = { active = it },
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .fillMaxWidth()
+                    ) {
+                        if (query.isNotEmpty()) {
+                            val filtredPlayers = playerListViewModel.AllPlayersOfTeam?.filter {
+                                val namewithoutAccents = it.name.unaccent()
+                                namewithoutAccents.contains(query, true)
+                            }
 
-                                            player?.id?.let { idPlayer ->
-                                                playerListViewModel.filterListById(idPlayer)
+                            LazyColumn(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                filtredPlayers?.size?.let { player ->
+                                    items(player) { myPlayer ->
+                                        val player = filtredPlayers?.get(myPlayer)
+                                        Row(modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable {
+                                                Toast
+                                                    .makeText(
+                                                        ctx,
+                                                        "PULSADO EN ${player?.name}",
+                                                        Toast.LENGTH_LONG
+                                                    )
+                                                    .show()
+
+                                                player?.id?.let { idPlayer ->
+                                                    playerListViewModel.filterListById(idPlayer)
+                                                }
+                                                active = false
                                             }
-                                            active = false
-                                        }
-                                    )
-                                    {
-                                        Text("${player?.name}",
-                                            Modifier
-                                                .padding(16.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontFamily = laligaFont,
                                         )
+                                        {
+                                            Text(
+                                                "${player?.name}",
+                                                Modifier
+                                                    .padding(16.dp),
+                                                textAlign = TextAlign.Center,
+                                                fontFamily = laligaFont,
+                                            )
 
-                                        AsyncImage(
-                                            modifier = Modifier
-                                                .size(100.dp),
-                                            placeholder = painterResource(id = R.drawable.loading_icon),
-                                            error = painterResource(id = R.drawable.loading_icon),
-                                            model = ImageRequest.Builder(LocalContext.current)
-                                                .data("https://futdb.app/api/players/${player?.id}/image")
-                                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
-                                                .build(), contentDescription = ""
-                                        )
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .size(100.dp),
+                                                placeholder = painterResource(id = R.drawable.loading_icon),
+                                                error = painterResource(id = R.drawable.loading_icon),
+                                                model = ImageRequest.Builder(LocalContext.current)
+                                                    .data("https://futdb.app/api/players/${player?.id}/image")
+                                                    .setHeader("X-AUTH-TOKEN", "$TOKEN")
+                                                    .build(), contentDescription = ""
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            Row() {
-                LazyColumn(
-                    modifier = Modifier.padding(
-                        vertical = globalPadding
-                    ),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(myList?.size ?: 0) { i ->
-                        val item = myList?.get(i)
-                        item?.let { team ->
-                            ShowPlayerItem(team) { onClick(team) }
+                Row() {
+                    LazyColumn(
+                        modifier = Modifier.padding(
+                            vertical = globalPadding
+                        ),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        items(myList?.size ?: 0) { i ->
+                            val item = myList?.get(i)
+                            item?.let { team ->
+                                ShowPlayerItem(team) { onClick(team) }
+                            }
                         }
                     }
                 }
@@ -230,7 +241,3 @@ fun CharSequence.unaccent(): String {
     val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
     return REGEX_UNACCENT.replace(temp, "")
 }
-
-//todo centrar escudo en topbar, poner media en playerlist en la derecha!!
-
-//TODO hacer comparacion de nombres con lowercase

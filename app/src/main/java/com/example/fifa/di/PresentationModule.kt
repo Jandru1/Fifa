@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 
 val presentationModule = module {
-    viewModel { TeamListViewModel(get(), get()) }
+    viewModel { TeamListViewModel(get()) }
     viewModel { PlayerListViewModel(get())}
     viewModel { PlayerDetailViewModel(get())}
 }

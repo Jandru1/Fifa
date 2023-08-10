@@ -11,6 +11,8 @@ interface TeamDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(list: List<TeamLocal>)
 
-    @Query("SELECT * FROM TEAMTABLE WHERE league=53" )
+
+    //Este id es el de un equipo HERO del fifa que tiene jugadores historicos, y por algun motivo la api lo coloca en la liga española
+    @Query("SELECT * FROM TEAMTABLE WHERE league=53 AND id != 114605" )
     suspend fun getAll() : List<TeamLocal>
 }

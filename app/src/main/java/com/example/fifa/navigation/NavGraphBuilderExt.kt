@@ -10,6 +10,7 @@ import com.example.fifa.presentation.teamlist.TeamListScreen
 
 fun NavGraphBuilder.addLoginScreen(navController: NavController) {
     composable(Screen.LoginScreen.route) {
+
         LoginScreen{
             navController.navigate(Screen.TeamsScreen.route)
         }

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.fifa.R
+import com.example.fifa.presentation.login.Animation
 import com.example.fifa.ui.theme.globalPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -50,20 +51,24 @@ fun TeamListScreen(
         )
     }
 
-    LazyColumn(
-        modifier = Modifier.padding(
-            vertical = globalPadding
-        ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    if(myList == null) {
+        Animation()
+    }
+    else {
+        LazyColumn(
+            modifier = Modifier.padding(
+                vertical = globalPadding
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        items(myList?.size ?: 0) { i ->
-            Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
-            val item = myList?.get(i)
-            item?.let { equipo ->
-                Log.w("EQUIPOS DENTRO", "el nombre es $equipo")
-                ShowTeamItem(equipo, { onClick(item.id) })
+            items(myList?.size ?: 0) { i ->
+                val item = myList?.get(i)
+                item?.let { equipo ->
+                    ShowTeamItem(equipo, { onClick(item.id) })
+                }
             }
         }
     }
+
 }

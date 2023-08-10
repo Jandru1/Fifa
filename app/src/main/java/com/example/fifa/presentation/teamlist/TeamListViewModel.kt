@@ -1,12 +1,10 @@
 package com.example.fifa.presentation.teamlist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fifa.domain.model.ItemModel
-import com.example.fifa.domain.model.PhotoTeamModel
+import com.example.fifa.domain.model.TeamModel
 import com.example.fifa.domain.usecases.GetTeamUrlUseCase
 import com.example.fifa.domain.usecases.GetTeamsListUseCase
 import kotlinx.coroutines.Dispatchers
@@ -15,14 +13,14 @@ import kotlinx.coroutines.withContext
 
 class TeamListViewModel (
     private val getTeamsListUseCase: GetTeamsListUseCase,
-    private val getTeamUrlUseCase: GetTeamUrlUseCase,
+   // private val getTeamUrlUseCase: GetTeamUrlUseCase,
 ): ViewModel() {
 
-    private val _teamList = MutableLiveData<List<ItemModel>>()
-    val teamList: LiveData<List<ItemModel>> get() = _teamList
-
+    private val _teamList = MutableLiveData<List<TeamModel>>()
+    val teamList: LiveData<List<TeamModel>> get() = _teamList
+/*
     private val _teamImage = MutableLiveData<PhotoTeamModel>()
-    val teamImage: LiveData<PhotoTeamModel> get() = _teamImage
+    val teamImage: LiveData<PhotoTeamModel> get() = _teamImage*/
 
     init {
         getData()
@@ -31,6 +29,7 @@ class TeamListViewModel (
     private fun getData() {
         viewModelScope.launch {
             try {
+                _teamList.value = null
                 val result = withContext(Dispatchers.IO) {
                     getTeamsListUseCase.invoke()
                 }
@@ -40,7 +39,7 @@ class TeamListViewModel (
         }
     }
 
-    fun getUrl(teamId: Int) {
+/*    fun getUrl(teamId: Int) {
         viewModelScope.launch {
             try{
                 val result = withContext(Dispatchers.IO){
@@ -51,5 +50,5 @@ class TeamListViewModel (
                 } catch (t: Throwable) {
             }
         }
-    }
+    }*/
 }

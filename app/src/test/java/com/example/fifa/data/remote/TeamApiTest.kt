@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -69,6 +68,6 @@ class TeamApiTest {
     @Test
     fun `WHEN request team list EXPECT result`() = runTest {
         val result = api.getTeamList(1)
-        MatcherAssert.assertThat(result.items.isEmpty(), CoreMatchers.`is`(false))
+        MatcherAssert.assertThat(result.teams.isEmpty(), CoreMatchers.`is`(false))
     }
 }

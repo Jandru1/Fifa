@@ -1,5 +1,10 @@
 package com.example.fifa.presentation.login
 import android.graphics.Paint.Align
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
@@ -79,8 +85,8 @@ fun LoginScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Transparent),
+            .fillMaxSize(),
+           // .background(Color.Transparent),
     //    verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     )
@@ -191,10 +197,38 @@ fun LoginScreen(
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(
-        onLoginSuccess = {
+    Animation(
+/*        onLoginSuccess = {
+        }*/
+    )
+}
+
+@Composable
+fun Animation() {
+    val init_value = 0f
+    val target_value = init_value + 20f
+    Column(modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        content = {
+            val infiniteTransition = rememberInfiniteTransition()
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = 600,
+                        easing = FastOutLinearInEasing
+                    )
+                )
+            )
+            Image(painter = painterResource(id = R.drawable.pelota), contentDescription = null,
+            modifier = Modifier
+                .size(60.dp)
+                .rotate(rotation))
         }
     )
+
 }
 
 

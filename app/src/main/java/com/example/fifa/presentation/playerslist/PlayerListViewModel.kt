@@ -47,6 +47,7 @@ class PlayerListViewModel(
     fun GetMyPlayers(idTeam: Int) {
         viewModelScope.launch {
             try {
+                _playerslist.value = null
                 val result = withContext(Dispatchers.IO) {
                     getPlayersListUseCase.invoke(idTeam)
                 }
@@ -65,7 +66,6 @@ class PlayerListViewModel(
         }
         _playerslist.value = _playerslistAux.value?.toList()
 
-        Log.w("Reduciendo Lista", "Nueva lista: ${_playerslist.value}")
     }
 
     fun filterListByName(namePlayer: String) {
@@ -78,6 +78,5 @@ class PlayerListViewModel(
         }
         _playerslist.value = _playerslistAux.value?.toList()
 
-        Log.w("Reduciendo Lista", "Nueva lista: ${_playerslist.value}")
     }
 }
