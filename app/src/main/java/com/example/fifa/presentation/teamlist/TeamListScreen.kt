@@ -44,7 +44,7 @@ fun TeamListScreen(
     ) {
 
         Image(
-            painter = painterResource(R.drawable.pedrigavi),
+            painter = painterResource(R.drawable.barsaligacampeon),
             contentDescription = "pedri",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds

@@ -131,14 +131,15 @@ fun PlayersListScreen(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(R.drawable.pedrigavi),
-                contentDescription = "pedri",
+                painter = painterResource(R.drawable.barsaligacampeon),
+                contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
             )
         }
 
-        Column() {
+        Column(
+        ) {
 
             if(myList == null) {
                 Animation()
@@ -149,7 +150,9 @@ fun PlayersListScreen(
                         query = query,
                         onQueryChange = { query = it },
                         onSearch = {
-                            playerListViewModel.filterListByName(query)
+                            if(query.isNotEmpty()) {
+                                playerListViewModel.filterListByName(query)
+                            }
                             active = false
                         },
                         active = active,

@@ -1,5 +1,6 @@
 package com.example.fifa.presentation.login
 import android.graphics.Paint.Align
+import android.widget.Toast
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -59,9 +61,12 @@ fun LoginScreen(
 
     val laligaFont = FontFamily(Font(R.font.laligafuente))
 
+    val ctx = LocalContext.current
+
+
     var email by remember {
         // mutableStateOf("")
-        mutableStateOf("agomezo456@gmail.io")
+        mutableStateOf("agomezo456@gmail.com")
     }
 
     var password by remember {
@@ -75,7 +80,7 @@ fun LoginScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(R.drawable.pedri),
+            painter = painterResource(R.drawable.pedriojos),
             contentDescription = "pedri",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
@@ -165,7 +170,8 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                onLoginSuccess()
+                if(email.lowercase() == "agomezo456@gmail.io".lowercase() && password.lowercase() == "MyPassword".lowercase()) onLoginSuccess()
+                else Toast.makeText(ctx, "Login incorrecto. Vuelva a intentarlo", Toast.LENGTH_SHORT).show()
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.rojoLogoLaliga))
 
@@ -197,16 +203,14 @@ fun LoginScreen(
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    Animation(
-/*        onLoginSuccess = {
-        }*/
+    LoginScreen(
+        onLoginSuccess = {
+        }
     )
 }
 
 @Composable
 fun Animation() {
-    val init_value = 0f
-    val target_value = init_value + 20f
     Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -222,7 +226,7 @@ fun Animation() {
                     )
                 )
             )
-            Image(painter = painterResource(id = R.drawable.pelota), contentDescription = null,
+            Image(painter = painterResource(id = R.drawable.jabulani), contentDescription = null,
             modifier = Modifier
                 .size(60.dp)
                 .rotate(rotation))

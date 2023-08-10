@@ -93,12 +93,6 @@ fun ShowTeamItem(
                         overflow = TextOverflow.Ellipsis,
                       //  fontFamily = laligaFont,
                         )
-                    Text(
-                        text = team.id.toString() + " " + team.league.toString(),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                      //  fontFamily = laligaFont,
-                        )
                     if(team.id == 241) {
                         Text(
                             text = "Actual Campeon",
