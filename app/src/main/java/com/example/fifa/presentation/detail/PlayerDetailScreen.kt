@@ -40,6 +40,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,6 +67,10 @@ fun PlayerDetailScreen(
     playerDetailViewModel.getPlayer(playerId)
 
     val colorVerde = colorResource(id = R.color.verdeFIFA)
+    val laligaFont = FontFamily(Font(R.font.laligafuente))
+
+    Icon(Icons.Filled.ArrowBack, null)
+
 
     Scaffold(
         topBar = {
@@ -73,7 +79,26 @@ fun PlayerDetailScreen(
                     myPlayer?.name?.let {
                         Text(
                             text = it,
-                            color = Color.White
+                            color = Color.White,
+                            fontFamily = laligaFont,
+                            )
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        AsyncImage(
+                            modifier = Modifier
+                                .size(50.dp),
+                            placeholder = painterResource(id = R.drawable.loading_icon),
+                            error = painterResource(id = R.drawable.loading_icon),
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data("https://futdb.app/api/clubs/${myPlayer?.club}/image")
+                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
+                                .build(), contentDescription = ""
                         )
                     }
 
@@ -106,7 +131,7 @@ fun PlayerDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .fillMaxWidth()
-                .padding(30.dp)
+                .padding(30.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -142,22 +167,23 @@ fun PlayerDetailScreen(
 
                         Text(
                         modifier = Modifier
-                                .width(200.dp)
-                                .drawBehind {
-                                    drawCircle(
-                                        color = colorVerde,
-                                        radius = 30.dp.toPx()
-                                    )
-                                    drawCircle(
-                                        color = Color.Black,
-                                        style = Stroke(width = 2.dp.toPx()), // Borde del círculo con ancho de 4dp
-                                        radius = 30.dp.toPx()
-                                    )
-                                },
+                            .width(200.dp)
+                            .drawBehind {
+                                drawCircle(
+                                    color = colorVerde,
+                                    radius = 30.dp.toPx()
+                                )
+                                drawCircle(
+                                    color = Color.Black,
+                                    style = Stroke(width = 2.dp.toPx()), // Borde del círculo con ancho de 4dp
+                                    radius = 30.dp.toPx()
+                                )
+                            },
                             text = "${myPlayer?.rating}",
                             textAlign = TextAlign.Center,
-                            fontSize = 30.sp
-                        )
+                            fontSize = 30.sp,
+                            fontFamily = laligaFont,
+                            )
                     }
                     Spacer(
                         modifier = Modifier
@@ -171,7 +197,9 @@ fun PlayerDetailScreen(
                                 .width(200.dp),
                             text = "${myPlayer?.age} años",
                             textAlign = TextAlign.Center,
-                        )
+                            fontFamily = laligaFont,
+
+                            )
                     }
                     Spacer(
                         modifier = Modifier
@@ -185,7 +213,8 @@ fun PlayerDetailScreen(
                                 .width(200.dp),
                             text = "${myPlayer?.position}",
                             textAlign = TextAlign.Center,
-                        )
+                            fontFamily = laligaFont,
+                            )
                     }
                     /*                    Spacer(
                         modifier = Modifier

@@ -4,8 +4,6 @@ import android.util.Log
 import com.example.fifa.data.remote.dto.ItemDto
 import com.example.fifa.data.remote.dto.PhotoTeamDto
 import com.example.fifa.data.remote.dto.PlayerDto
-import com.example.fifa.data.remote.dto.SearchDto
-import com.example.fifa.data.remote.dto.TeamDto
 
 class RemoteDataSourceImpl(
     private val teamApi: TeamApi
@@ -14,7 +12,7 @@ class RemoteDataSourceImpl(
         val times = 35
         var myList = mutableListOf<ItemDto>()
         for(i in 1..times) {
-            for(item in teamApi.getTeamList1(i).items) myList.add(item)
+            for(item in teamApi.getTeamList(i).items) myList.add(item)
         }
         return myList
     }

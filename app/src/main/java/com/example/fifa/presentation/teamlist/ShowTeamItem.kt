@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,16 +52,17 @@ fun ShowTeamItem(
 
     val teamList = teamListViewModel.teamList.observeAsState().value
     val photo = teamListViewModel.teamImage.observeAsState().value
-    //
 
-    LaunchedEffect(Unit) {
+    val laligaFont = FontFamily(Font(R.font.laligafuente))
+
+/*    LaunchedEffect(Unit) {
         if (team.escudo.byteArray != null) {
             val url = teamListViewModel.getUrl(team.id)
             if (photo != null) {
                 team.escudo = photo
             }
         }
-    }
+    }*/
 
     Card(
         modifier = androidx.compose.ui.Modifier.padding(globalPadding),
@@ -99,13 +102,20 @@ fun ShowTeamItem(
                     Text(
                         text = team.name,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Text(
-                        text = "Actual Campeón",
-                        maxLines = 4,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                        overflow = TextOverflow.Ellipsis,
+                      //  fontFamily = laligaFont,
+                        )
+                    if(team.id == 241) {
+                        Text(
+                            text = "Actual Campeon",
+                            maxLines = 4,
+                            overflow = TextOverflow.Ellipsis,
+                            fontFamily = laligaFont,
+                        )
+                    }
+
+                    //Barsa ID = 241
+
                 }
             }
         }

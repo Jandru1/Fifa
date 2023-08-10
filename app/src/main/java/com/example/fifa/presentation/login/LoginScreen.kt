@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -58,7 +59,7 @@ fun LoginScreen(
     }
 
     var password by remember {
-        mutableStateOf("password")
+        mutableStateOf("MyPassword")
         //mutableStateOf("")
     }
 
@@ -139,7 +140,6 @@ fun LoginScreen(
                 },
                 placeholder = {
                     androidx.compose.material.Text("Email")
-
                 },
                 textStyle = androidx.compose.ui.text.TextStyle(
                     fontFamily = laligaFont
@@ -161,7 +161,7 @@ fun LoginScreen(
             onClick = {
                 onLoginSuccess()
             },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.rojoLogoLaliga))
 
         ) {
             androidx.compose.material.Text(
@@ -169,11 +169,11 @@ fun LoginScreen(
                 style = androidx.compose.ui.text.TextStyle(
                     fontFamily = laligaFont
                 ),
-                color = Color.Black
+                color = Color.White
             )
         }
 
-        Button(
+        /*Button(
             onClick = {
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
@@ -185,7 +185,7 @@ fun LoginScreen(
                     fontFamily = laligaFont
                 ),
             )
-        }
+        }*/
     }
 }
 @Preview
@@ -196,3 +196,11 @@ fun LoginScreenPreview() {
         }
     )
 }
+
+
+
+//FUENTE DE LA LIGA
+//BOTON FORGOT FUERA
+//COLOR DE LOGIN?
+//EMAIL Y PASSWORD?
+//

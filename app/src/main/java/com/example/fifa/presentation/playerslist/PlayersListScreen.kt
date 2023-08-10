@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -25,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -46,7 +51,11 @@ import com.example.fifa.presentation.teamlist.ShowTeamItem
 import com.example.fifa.ui.theme.globalPadding
 import com.google.android.material.search.SearchBar
 import org.koin.androidx.compose.koinViewModel
+import java.text.Collator
+import java.text.Normalizer
 import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
+
+private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -61,23 +70,43 @@ fun PlayersListScreen(
     val myList = playerListViewModel.playersList.observeAsState().value
 
     val ctx = LocalContext.current
+    val laligaFont = FontFamily(Font(R.font.laligafuente))
 
-    playerListViewModel.GetMyPlayers(idTeam)
+    LaunchedEffect(null) {
+        playerListViewModel.GetMyPlayers(idTeam)
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    AsyncImage(
+                    Column(
                         modifier = Modifier
-                            .size(50.dp),
-                        placeholder = painterResource(id = R.drawable.loading_icon),
-                        error = painterResource(id = R.drawable.loading_icon),
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data("https://futdb.app/api/clubs/${idTeam}/image")
-                            .setHeader("X-AUTH-TOKEN", "$TOKEN")
-                            .build(), contentDescription = ""
-                    )
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        AsyncImage(
+                            modifier = Modifier
+                                .size(50.dp),
+                            placeholder = painterResource(id = R.drawable.loading_icon),
+                            error = painterResource(id = R.drawable.loading_icon),
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data("https://futdb.app/api/clubs/${idTeam}/image")
+                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
+                                .build(), contentDescription = ""
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.Start
+                    ) {
+
+                    }
                 },
                 navigationIcon = {
                     IconButton(
@@ -100,7 +129,7 @@ fun PlayersListScreen(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(R.drawable.pedri),
+                painter = painterResource(R.drawable.pedrigavi),
                 contentDescription = "pedri",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
@@ -113,7 +142,7 @@ fun PlayersListScreen(
                     query = query,
                     onQueryChange = {query = it},
                     onSearch = {
-                        Toast.makeText(ctx, query, Toast.LENGTH_LONG).show()
+                        playerListViewModel.filterListByName(query)
                         active = false
                     },
                     active = active,
@@ -123,15 +152,19 @@ fun PlayersListScreen(
                         .fillMaxWidth()
                 ) {
                     if(query.isNotEmpty()){
-                        val filtredPlayers = myList?.filter {
-                            it.name.contains(query, true)
+                        val filtredPlayers = playerListViewModel.AllPlayersOfTeam?.filter {
+                            val namewithoutAccents = it.name.unaccent()
+                            namewithoutAccents.contains(query, true)
                         }
 
-                        LazyColumn(modifier = Modifier.padding(10.dp)){
-                            filtredPlayers?.size?.let { it1 ->
-                                items(it1) {
-                                    val player = filtredPlayers?.get(it)
+                        LazyColumn(modifier = Modifier
+                            .padding(10.dp)
+                            .fillMaxWidth()){
+                            filtredPlayers?.size?.let { player->
+                                items(player) {myPlayer ->
+                                    val player = filtredPlayers?.get(myPlayer)
                                     Row (modifier = Modifier
+                                        .fillMaxWidth()
                                         .clickable {
                                             Toast
                                                 .makeText(
@@ -141,10 +174,9 @@ fun PlayersListScreen(
                                                 )
                                                 .show()
 
-                                            player?.name?.let { it2 ->
-                                                playerListViewModel.filterListBySearch(it2)
+                                            player?.id?.let { idPlayer ->
+                                                playerListViewModel.filterListById(idPlayer)
                                             }
-
                                             active = false
                                         }
                                     )
@@ -152,8 +184,10 @@ fun PlayersListScreen(
                                         Text("${player?.name}",
                                             Modifier
                                                 .padding(16.dp),
-                                            textAlign = TextAlign.Center
+                                            textAlign = TextAlign.Center,
+                                            fontFamily = laligaFont,
                                         )
+
                                         AsyncImage(
                                             modifier = Modifier
                                                 .size(100.dp),
@@ -165,15 +199,13 @@ fun PlayersListScreen(
                                                 .build(), contentDescription = ""
                                         )
                                     }
-
-
                                 }
                             }
                         }
-
                     }
                 }
             }
+
             Row() {
                 LazyColumn(
                     modifier = Modifier.padding(
@@ -182,7 +214,6 @@ fun PlayersListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(myList?.size ?: 0) { i ->
-                        Log.w("EQUIPOS FUERA", "${myList?.get(i)}")
                         val item = myList?.get(i)
                         item?.let { team ->
                             ShowPlayerItem(team) { onClick(team) }
@@ -194,3 +225,12 @@ fun PlayersListScreen(
 
     }
 }
+
+fun CharSequence.unaccent(): String {
+    val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+    return REGEX_UNACCENT.replace(temp, "")
+}
+
+//todo centrar escudo en topbar, poner media en playerlist en la derecha!!
+
+//TODO hacer comparacion de nombres con lowercase

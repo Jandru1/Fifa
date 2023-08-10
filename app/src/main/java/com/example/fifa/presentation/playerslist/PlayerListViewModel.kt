@@ -1,6 +1,7 @@
 package com.example.fifa.presentation.playerslist
 
 import android.util.Log
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,17 +12,20 @@ import com.example.fifa.domain.usecases.GetPlayersListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.Collator
 
 class PlayerListViewModel(
     private val getPlayersListUseCase: GetPlayersListUseCase
 ) :ViewModel() {
 
-    private var _playerslist = MutableLiveData<List<PlayerModel>>()
+    private val _playerslist = MutableLiveData<List<PlayerModel>>()
     val playersList: LiveData<List<PlayerModel>> get() = _playerslist
 
 
     private var _playerslistAux = MutableLiveData<List<PlayerModel>>()
     val playersListAux: LiveData<List<PlayerModel>> get() = _playerslistAux
+
+    var AllPlayersOfTeam = mutableListOf<PlayerModel>()
 
     init {
        // getData()
@@ -47,17 +51,32 @@ class PlayerListViewModel(
                     getPlayersListUseCase.invoke(idTeam)
                 }
                 _playerslist.value = result
+                AllPlayersOfTeam = result as MutableList<PlayerModel>
             }
             catch(t: Throwable) {
             }
         }
     }
 
-    fun filterListBySearch(namePlayer: String) {
-        _playerslistAux.value = _playerslist.value?.filter {
-            it.name == namePlayer
+    fun filterListById(idPlayer: Int) {
+
+        _playerslistAux.value = AllPlayersOfTeam?.filter {
+            it.id == idPlayer
         }
-        _playerslist.value = _playerslistAux.value
+        _playerslist.value = _playerslistAux.value?.toList()
+
+        Log.w("Reduciendo Lista", "Nueva lista: ${_playerslist.value}")
+    }
+
+    fun filterListByName(namePlayer: String) {
+
+        _playerslistAux.value = AllPlayersOfTeam?.filter {
+            val name1 = it.name.lowercase().unaccent()
+            val name2 = namePlayer.lowercase().unaccent()
+            name1.contains(name2, true)
+
+        }
+        _playerslist.value = _playerslistAux.value?.toList()
 
         Log.w("Reduciendo Lista", "Nueva lista: ${_playerslist.value}")
     }

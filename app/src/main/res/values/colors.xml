@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="verdeFIFA">#0c6834</color>
+    <color name="verdeFIFAclaro">#12a14b</color>
+    <color name="rojoLogoLaliga">#ff4040</color>
 </resources>
