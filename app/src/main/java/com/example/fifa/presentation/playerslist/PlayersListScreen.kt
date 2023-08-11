@@ -46,6 +46,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.fifa.R
 import com.example.fifa.data.remote.TOKEN
+import com.example.fifa.di.baseUrl
 import com.example.fifa.domain.model.PlayerModel
 import com.example.fifa.presentation.login.Animation
 import com.example.fifa.presentation.teamlist.ShowTeamItem
@@ -82,33 +83,7 @@ fun PlayersListScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .size(50.dp),
-                            placeholder = painterResource(id = R.drawable.loading_icon),
-                            error = painterResource(id = R.drawable.loading_icon),
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data("https://futdb.app/api/clubs/${idTeam}/image")
-                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
-                                .build(), contentDescription = ""
-                        )
-                    }
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.Start
-                    ) {
-
-                    }
+                        titleScaffold(idTeam = idTeam)
                 },
                 navigationIcon = {
                     IconButton(
@@ -199,7 +174,7 @@ fun PlayersListScreen(
                                                 placeholder = painterResource(id = R.drawable.loading_icon),
                                                 error = painterResource(id = R.drawable.loading_icon),
                                                 model = ImageRequest.Builder(LocalContext.current)
-                                                    .data("https://futdb.app/api/players/${player?.id}/image")
+                                                    .data(baseUrl+"players/${player?.id}/image")
                                                     .setHeader("X-AUTH-TOKEN", "$TOKEN")
                                                     .build(), contentDescription = ""
                                             )
@@ -234,4 +209,35 @@ fun PlayersListScreen(
 fun CharSequence.unaccent(): String {
     val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
     return REGEX_UNACCENT.replace(temp, "")
+}
+
+@Composable
+fun titleScaffold(idTeam: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.End
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .size(50.dp),
+            placeholder = painterResource(id = R.drawable.loading_icon),
+            error = painterResource(id = R.drawable.loading_icon),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(baseUrl+"clubs/${idTeam}/image")
+                .setHeader("X-AUTH-TOKEN", "$TOKEN")
+                .build(), contentDescription = ""
+        )
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.Start
+    ) {
+
+    }
 }

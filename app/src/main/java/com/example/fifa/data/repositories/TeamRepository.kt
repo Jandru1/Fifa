@@ -1,4 +1,4 @@
-package com.example.fifa.data
+package com.example.fifa.data.repositories
 
 import com.example.fifa.domain.model.TeamModel
 

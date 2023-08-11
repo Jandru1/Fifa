@@ -2,16 +2,16 @@ package com.example.fifa.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.fifa.data.PlayerRepository
-import com.example.fifa.data.PlayerRepositoryImpl
-import com.example.fifa.data.TeamRepository
-import com.example.fifa.data.TeamRepositoryImpl
-import com.example.fifa.data.local.LocalDataSource
-import com.example.fifa.data.local.LocalDataSourceImpl
-import com.example.fifa.data.local.PlayerDatabase
-import com.example.fifa.data.local.PlayerDao
-import com.example.fifa.data.local.TeamDao
-import com.example.fifa.data.local.TeamDatabase
+import com.example.fifa.data.repositories.PlayerRepository
+import com.example.fifa.data.repositories.PlayerRepositoryImpl
+import com.example.fifa.data.repositories.TeamRepository
+import com.example.fifa.data.repositories.TeamRepositoryImpl
+import com.example.fifa.data.local.datasources.LocalDataSource
+import com.example.fifa.data.local.datasources.LocalDataSourceImpl
+import com.example.fifa.data.local.dbs.PlayerDatabase
+import com.example.fifa.data.local.dao.PlayerDao
+import com.example.fifa.data.local.dao.TeamDao
+import com.example.fifa.data.local.dbs.TeamDatabase
 import com.example.fifa.data.remote.RemoteDataSource
 import com.example.fifa.data.remote.RemoteDataSourceImpl
 import com.example.fifa.data.remote.TeamApi
@@ -49,7 +49,7 @@ val dataModule = module {
 
     single<TeamRepository> { TeamRepositoryImpl(get(), get()) }
 
-    single<PlayerRepository> { PlayerRepositoryImpl(get(), get())}
+    single<PlayerRepository> { PlayerRepositoryImpl(get(), get()) }
 
     single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
 

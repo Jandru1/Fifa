@@ -23,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.fifa.R
-import com.example.fifa.TeamTestDataBuilder
+import com.example.fifa.testbuilders.TeamTestDataBuilder
 import com.example.fifa.data.remote.TOKEN
+import com.example.fifa.di.baseUrl
 import com.example.fifa.domain.model.TeamModel
 import com.example.fifa.ui.theme.globalElevation
 import com.example.fifa.ui.theme.globalPadding
@@ -73,7 +74,7 @@ fun ShowTeamItem(
                 placeholder = painterResource(id = R.drawable.loading_icon),
                 error = painterResource(id = R.drawable.loading_icon),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("https://futdb.app/api/clubs/${team.id}/image")
+                    .data(baseUrl + "clubs/${team.id}/image")
                     .setHeader("X-AUTH-TOKEN", "$TOKEN")
                     .build(), contentDescription = ""
             )

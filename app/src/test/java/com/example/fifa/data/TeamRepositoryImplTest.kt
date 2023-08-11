@@ -1,12 +1,11 @@
 package com.example.fifa.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.fifa.TeamTestDataBuilder
-import com.example.fifa.data.local.LocalDataSource
+import com.example.fifa.data.local.datasources.LocalDataSource
 import com.example.fifa.data.local.Model.TeamLocal
 import com.example.fifa.data.remote.RemoteDataSource
 import com.example.fifa.data.remote.dto.TeamDto
-import com.example.fifa.data.remote.dto.TeamListDto
+import com.example.fifa.data.repositories.TeamRepositoryImpl
 import com.example.fifa.testutils.DefaultDispatcherRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -14,11 +13,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.not
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
-import org.junit.jupiter.api.Assertions.*
 
 import org.junit.Test
 

@@ -7,7 +7,7 @@ import org.junit.Rule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
-import com.example.fifa.PlayerTestDataBuilder
+import com.example.fifa.testbuilders.PlayerTestDataBuilder
 import com.example.fifa.presentation.playerslist.ShowPlayerItem
 import org.junit.Test
 

@@ -1,11 +1,10 @@
 package com.example.fifa.domain.model
 
-import com.example.fifa.TeamTestDataBuilder
+import com.example.fifa.testbuilders.TeamTestDataBuilder
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.jupiter.api.Assertions.*
 
 import org.junit.Test
 

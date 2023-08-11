@@ -1,6 +1,5 @@
-package com.example.fifa
+package com.example.fifa.testbuilders
 
-import com.example.fifa.domain.model.PlayerModel
 import com.example.fifa.domain.model.TeamModel
 
 class TeamTestDataBuilder {
@@ -10,21 +9,21 @@ class TeamTestDataBuilder {
 
     var numElements: Int = 1
 
-    fun withId(id: Int) :TeamTestDataBuilder {
+    fun withId(id: Int) : TeamTestDataBuilder {
         this.id = id
         return this
     }
 
-    fun withName(name: String):TeamTestDataBuilder {
+    fun withName(name: String): TeamTestDataBuilder {
         this.name = name
         return this
     }
 
-    fun withLeague(league: Int) :TeamTestDataBuilder{
+    fun withLeague(league: Int) : TeamTestDataBuilder {
         this.league = league
         return this
     }
-    fun withNumElements(el: Int) :TeamTestDataBuilder{
+    fun withNumElements(el: Int) : TeamTestDataBuilder {
         this.numElements = el
         return this
     }

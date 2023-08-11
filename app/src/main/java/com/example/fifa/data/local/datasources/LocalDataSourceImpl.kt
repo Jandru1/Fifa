@@ -1,7 +1,9 @@
-package com.example.fifa.data.local
+package com.example.fifa.data.local.datasources
 
 import com.example.fifa.data.local.Model.PlayerLocal
 import com.example.fifa.data.local.Model.TeamLocal
+import com.example.fifa.data.local.dao.PlayerDao
+import com.example.fifa.data.local.dao.TeamDao
 
 class LocalDataSourceImpl(
     private val teamDao: TeamDao,

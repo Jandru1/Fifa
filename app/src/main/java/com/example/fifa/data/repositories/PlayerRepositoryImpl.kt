@@ -1,7 +1,6 @@
-package com.example.fifa.data
+package com.example.fifa.data.repositories
 
-import com.example.fifa.data.local.LocalDataSource
-import com.example.fifa.data.mappers.toItemModel
+import com.example.fifa.data.local.datasources.LocalDataSource
 import com.example.fifa.data.mappers.toPlayerLocal
 import com.example.fifa.data.mappers.toPlayerModel
 import com.example.fifa.data.remote.RemoteDataSource
@@ -10,7 +9,7 @@ import com.example.fifa.domain.model.PlayerModel
 class PlayerRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) :PlayerRepository {
+) : PlayerRepository {
     override suspend fun getPlayersList(idTeam: Int): List<PlayerModel> {
 
         val localData = localDataSource.getPlayerList(idTeam)

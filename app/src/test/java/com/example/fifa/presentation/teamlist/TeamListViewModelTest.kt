@@ -1,7 +1,7 @@
 package com.example.fifa.presentation.teamlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.fifa.TeamTestDataBuilder
+import com.example.fifa.testbuilders.TeamTestDataBuilder
 import com.example.fifa.domain.usecases.GetTeamsListUseCase
 import com.example.fifa.testutils.DefaultDispatcherRule
 import com.example.fifa.testutils.getOrAwaitValue
@@ -13,10 +13,8 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
-import org.junit.jupiter.api.Assertions.*
 
 import org.junit.Test
-import org.koin.androidx.compose.get
 
 internal class TeamListViewModelTest {
 

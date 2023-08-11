@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-const val TOKEN: String = "46ed2dd8-a0af-4bcf-a8a7-fe470a35fddc"
+const val TOKEN: String = "8527e125-2a0a-4c10-bf37-f65e36b83f84"
 
 interface TeamApi {
 

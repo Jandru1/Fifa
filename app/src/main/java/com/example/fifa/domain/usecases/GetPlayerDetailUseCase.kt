@@ -1,6 +1,6 @@
 package com.example.fifa.domain.usecases
 
-import com.example.fifa.data.PlayerRepository
+import com.example.fifa.data.repositories.PlayerRepository
 
 class GetPlayerDetailUseCase(
     private val playerRepository: PlayerRepository

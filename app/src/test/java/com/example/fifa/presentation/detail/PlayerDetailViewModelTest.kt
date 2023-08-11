@@ -1,20 +1,17 @@
 package com.example.fifa.presentation.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.fifa.PlayerTestDataBuilder
+import com.example.fifa.testbuilders.PlayerTestDataBuilder
 import com.example.fifa.domain.usecases.GetPlayerDetailUseCase
 import com.example.fifa.testutils.DefaultDispatcherRule
 import com.example.fifa.testutils.getOrAwaitValue
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
-import org.junit.jupiter.api.Assertions.*
 
 import org.junit.Test
 

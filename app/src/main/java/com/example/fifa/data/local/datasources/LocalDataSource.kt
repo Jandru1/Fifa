@@ -1,4 +1,4 @@
-package com.example.fifa.data.local
+package com.example.fifa.data.local.datasources
 
 import com.example.fifa.data.local.Model.PlayerLocal
 import com.example.fifa.data.local.Model.TeamLocal

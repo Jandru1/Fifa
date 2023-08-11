@@ -1,6 +1,6 @@
 package com.example.fifa.domain.usecases
 
-import com.example.fifa.data.TeamRepository
+import com.example.fifa.data.repositories.TeamRepository
 
 class GetTeamUrlUseCase (
     private val teamRepository: TeamRepository

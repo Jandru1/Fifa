@@ -1,7 +1,6 @@
-package com.example.fifa
+package com.example.fifa.testbuilders
 
 import com.example.fifa.domain.model.PlayerModel
-import com.example.fifa.domain.model.TeamModel
 
 class PlayerTestDataBuilder {
     var id: Int = -1
@@ -16,48 +15,48 @@ class PlayerTestDataBuilder {
 
     var numElements = -1
 
-    fun withId(id: Int) :PlayerTestDataBuilder {
+    fun withId(id: Int) : PlayerTestDataBuilder {
         this.id = id
         return this
     }
 
-    fun withName(commonName: String):PlayerTestDataBuilder {
+    fun withName(commonName: String): PlayerTestDataBuilder {
         this.commonName = commonName
         return this
     }
 
-    fun withClub(club: Int) :PlayerTestDataBuilder{
+    fun withClub(club: Int) : PlayerTestDataBuilder {
         this.club = club
         return this
     }
-    fun withLeague(league: Int) :PlayerTestDataBuilder{
+    fun withLeague(league: Int) : PlayerTestDataBuilder {
         this.league = league
         return this
     }
-    fun withAge(age: Int) :PlayerTestDataBuilder{
+    fun withAge(age: Int) : PlayerTestDataBuilder {
         this.age = age
         return this
     }
 
-    fun withPosition(pos: String) :PlayerTestDataBuilder{
+    fun withPosition(pos: String) : PlayerTestDataBuilder {
         this.position = pos
         return this
     }
-    fun withFoot(foot: String) :PlayerTestDataBuilder{
+    fun withFoot(foot: String) : PlayerTestDataBuilder {
         this.foot = foot
         return this
     }
 
-    fun withRating(rating: Int) :PlayerTestDataBuilder{
+    fun withRating(rating: Int) : PlayerTestDataBuilder {
         this.rating = rating
         return this
     }
-    fun withRarity(rarity: Int) :PlayerTestDataBuilder{
+    fun withRarity(rarity: Int) : PlayerTestDataBuilder {
         this.rarity = rarity
         return this
     }
 
-    fun withNumElements(el: Int) :PlayerTestDataBuilder{
+    fun withNumElements(el: Int) : PlayerTestDataBuilder {
         this.numElements = el
         return this
     }

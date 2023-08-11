@@ -31,6 +31,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.fifa.R
 import com.example.fifa.data.remote.TOKEN
+import com.example.fifa.di.baseUrl
 import com.example.fifa.domain.model.PlayerModel
 import com.example.fifa.ui.theme.globalElevation
 import com.example.fifa.ui.theme.globalPadding
@@ -65,7 +66,7 @@ fun ShowPlayerItem(
                 placeholder = painterResource(id = R.drawable.loading_icon),
                 error = painterResource(id = R.drawable.loading_icon),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("https://futdb.app/api/players/${player.id}/image")
+                    .data(baseUrl + "players/${player.id}/image")
                     .setHeader("X-AUTH-TOKEN", "$TOKEN")
                     .build(), contentDescription = ""
             )

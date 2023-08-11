@@ -53,6 +53,8 @@ import com.example.fifa.R
 import com.example.fifa.components.FootLeftPlayerComponent
 import com.example.fifa.components.FootRightPlayerComponent
 import com.example.fifa.data.remote.TOKEN
+import com.example.fifa.di.baseUrl
+import com.example.fifa.presentation.playerslist.titleScaffold
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -76,32 +78,7 @@ fun PlayerDetailScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    myPlayer?.name?.let {
-                        Text(
-                            text = it,
-                            color = Color.White,
-                            fontFamily = laligaFont,
-                            )
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .size(50.dp),
-                            placeholder = painterResource(id = R.drawable.loading_icon),
-                            error = painterResource(id = R.drawable.loading_icon),
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data("https://futdb.app/api/clubs/${myPlayer?.club}/image")
-                                .setHeader("X-AUTH-TOKEN", "$TOKEN")
-                                .build(), contentDescription = ""
-                        )
-                    }
-
+                    myPlayer?.club?.let { titleScaffold(idTeam = it) }
                 },
                 navigationIcon = {
                     IconButton(
@@ -144,7 +121,7 @@ fun PlayerDetailScreen(
                     placeholder = painterResource(id = R.drawable.loading_icon),
                     error = painterResource(id = R.drawable.loading_icon),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://futdb.app/api/players/${playerId}/image")
+                        .data(baseUrl+"players/${playerId}/image")
                         .setHeader("X-AUTH-TOKEN", "$TOKEN")
                         .build(), contentDescription = ""
                 )
