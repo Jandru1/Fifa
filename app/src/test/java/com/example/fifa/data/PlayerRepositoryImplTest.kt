@@ -67,20 +67,19 @@ internal class PlayerRepositoryImplTest {
         assertThat(res, instanceOf(List::class.java))
         assertThat(res.size, `is`(4))
     }
-
-    fun getPlayerListRemote(): List<PlayerDto> {
-        return listOf<PlayerDto>(
-            PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
-            PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
-            PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
-        )
-    }
-    fun getPlayerListLocal(): List<PlayerLocal> {
-        return listOf<PlayerLocal>(
-            PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
-            PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
-            PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
-            PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
-        )
-    }
+}
+fun getPlayerListRemote(): List<PlayerDto> {
+    return listOf<PlayerDto>(
+        PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
+        PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
+        PlayerDto(1,"hola",1,1,1,"cm","right",54,3),
+    )
+}
+fun getPlayerListLocal(): List<PlayerLocal> {
+    return listOf<PlayerLocal>(
+        PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
+        PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
+        PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
+        PlayerLocal(1,"hola",1,1,1,"cm","right",54,3),
+    )
 }

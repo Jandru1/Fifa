@@ -131,7 +131,7 @@ fun PlayersListScreen(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(R.drawable.barsaligacampeon),
+                painter = painterResource(R.drawable.pedri),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
@@ -178,14 +178,6 @@ fun PlayersListScreen(
                                         Row(modifier = Modifier
                                             .fillMaxWidth()
                                             .clickable {
-                                                Toast
-                                                    .makeText(
-                                                        ctx,
-                                                        "PULSADO EN ${player?.name}",
-                                                        Toast.LENGTH_LONG
-                                                    )
-                                                    .show()
-
                                                 player?.id?.let { idPlayer ->
                                                     playerListViewModel.filterListById(idPlayer)
                                                 }
