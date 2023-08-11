@@ -66,7 +66,7 @@ fun LoginScreen(
 
     var email by remember {
         // mutableStateOf("")
-        mutableStateOf("agomezo456@gmail.com")
+        mutableStateOf("agomezo456@gmail.io")
     }
 
     var password by remember {

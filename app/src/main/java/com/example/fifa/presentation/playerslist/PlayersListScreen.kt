@@ -141,10 +141,10 @@ fun PlayersListScreen(
         Column(
         ) {
 
-            if(myList == null) {
+/*            if(myList == null) {
                 Animation()
             }
-            else {
+            else {*/
                 Row() {
                     SearchBar(
                         query = query,
@@ -225,7 +225,6 @@ fun PlayersListScreen(
                             }
                         }
                     }
-                }
             }
         }
 
